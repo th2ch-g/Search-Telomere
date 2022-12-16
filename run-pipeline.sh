@@ -99,6 +99,6 @@ step4_Sort_filter_telomere.sh $chr_number
 step5_Count_telomere.py $prefix $chr_number > result_count_telomere.txt
 step6_Check_count_telomere.py $allow_bp > result_count_telomere.checked.txt
 #step7_Reformat_result.sh $ $scaffold_file
-step8_Plot_telomere_size.py result_count_telomere.chekced.txt $prefix
+step8_Plot_telomere_size.py result_count_telomere.checked.txt $prefix
 
 echo "All pipiline done" >&1
