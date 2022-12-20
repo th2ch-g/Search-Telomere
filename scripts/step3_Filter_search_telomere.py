@@ -4,6 +4,7 @@ import sys
 import os
 
 chr_number = int(sys.argv[1])
+motif_len = len(sys.argv[2])
 output_dir = "seqkit_fish_result_filtered"
 
 os.system('mkdir ' + output_dir)
@@ -32,9 +33,9 @@ for i in range(1, chr_number+1):
                 qry_start = int(a[4])
                 qry_end = int(a[5])
 
-                if qry_end - qry_start != 7:
+                if qry_end - qry_start != motif_len:
                     continue
-                if ref_end - ref_start != 7:
+                if ref_end - ref_start != motif_len:
                     continue
 
                 #print(tmp1 + "\t" + tmp2 + "\t" + tmp3)

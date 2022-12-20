@@ -94,7 +94,7 @@ set -e
 
 step1_Prepare.sh $scaffold_file $prefix $chr_number
 step2_Search_telomere.sh $prefix $motif $telomere_search_range
-step3_Filter_search_telomere.py $chr_number
+step3_Filter_search_telomere.py $chr_number $motif
 step4_Sort_filter_telomere.sh $chr_number
 step5_Count_telomere.py $prefix $chr_number > result_count_telomere.txt
 step6_Check_count_telomere.py $allow_bp > result_count_telomere.checked.txt
