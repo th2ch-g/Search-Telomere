@@ -20,6 +20,7 @@ OPTIONS:
     -r, --telomere-search-range     Telomere search range [default: 150000]
     -m, --motif                     Telomere motif [default: TTTAGGG]
     -c, --change-nucleotide         Change N fot seqkit fish [default: A]
+    --strict                        Filter one character difference [default: not set]
 
 REQUIREMENT:
     seqkit                  seqkit is used for fasta processing
@@ -32,6 +33,7 @@ prefix="out"
 allow_bp="0"
 motif="TTTAGGG"
 change_nuc="A"
+strict_flag=0
 while :;
 do
     case $1 in
@@ -80,6 +82,9 @@ do
             change_nuc="$2"
             shift
             ;;
+        --strict)
+            strict_flag=1
+            ;;
         --)
             shift
             break
@@ -105,7 +110,7 @@ set -e
 
 step1_Prepare.sh $scaffold_file $prefix $chr_number $change_nuc
 step2_Search_telomere.sh $prefix $motif $telomere_search_range
-step3_Filter_search_telomere.py $chr_number $motif
+step3_Filter_search_telomere.py $chr_number $motif $strict_flag
 step4_Sort_filter_telomere.sh $chr_number
 step5_Count_telomere.py $prefix $chr_number > result_count_telomere.txt
 step6_Check_count_telomere.py $allow_bp > result_count_telomere.checked.txt
