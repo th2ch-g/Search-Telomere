@@ -19,6 +19,7 @@ OPTIONS:
     -n, --chr-number                Chromosome number [default: 28]
     -r, --telomere-search-range     Telomere search range [default: 150000]
     -m, --motif                     Telomere motif [default: TTTAGGG]
+    -c, --change-nucleotide         Change N fot seqkit fish [default: A]
 
 REQUIREMENT:
     seqkit                  seqkit is used for fasta processing
@@ -30,6 +31,7 @@ telomere_search_range="150000"
 prefix="out"
 allow_bp="0"
 motif="TTTAGGG"
+change_nuc="A"
 while :;
 do
     case $1 in
@@ -68,6 +70,15 @@ do
                 exit 1
             fi
             chr_number="$2"
+            shift
+            ;;
+        -c | --change-nuc)
+            if [ -z "$2" ]; then
+                echo "[ERROR] change nucleotide is not detected or must be single character" >&2
+                exit 1
+            fi
+            change_nuc="$2"
+            shift
             ;;
         --)
             shift
@@ -92,7 +103,7 @@ fi
 #=======================================================================
 set -e
 
-step1_Prepare.sh $scaffold_file $prefix $chr_number
+step1_Prepare.sh $scaffold_file $prefix $chr_number $change_nuc
 step2_Search_telomere.sh $prefix $motif $telomere_search_range
 step3_Filter_search_telomere.py $chr_number $motif
 step4_Sort_filter_telomere.sh $chr_number
